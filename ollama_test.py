@@ -1,11 +1,11 @@
 import requests
 import pdfplumber
-pdf1 = pdfplumber.open('example.pdf')
+pdf1 = pdfplumber.open('https://vd0186.github.io/VD0186/example.pdf')
 text1 = ""
 for i in range(len(pdf1.pages)):
     page1 = pdf1.pages[i]
     text1 = text1+page1.extract_text()
-pdf2 = pdfplumber.open('insurance_policy.pdf')
+pdf2 = pdfplumber.open('https://vd0186.github.io/VD0186/insurance_policy.pdf')
 text2 = ""
 for i in range(len(pdf2.pages)):
     page2 = pdf2.pages[i]
