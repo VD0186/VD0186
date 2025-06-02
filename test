@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <title>大語言模型</title>
+
+  <style>
+
+    body {margin: 2em;}
+
+    textarea {width: 100%; height: 100px;}
+
+    #response {white-space: pre-wrap; margin-top: 1em; background: #f0f0f0; padding: 1em; border-radius: 5px;}
+
+  </style>
+
+</head>
+
+<body>
+
+  <h1>大語言模型</h1>
+
+  <label for="model">模型名稱: </label>
+
+  <input type="text" id="model" value="gemma2:2b">
+
+  <br><br>
+
+  <textarea id="prompt" placeholder="輸入問題"></textarea><br>
+
+  <button onclick="callOllama()">送出</button>
+
+  <div id="response"></div>
+
+  <script>
+
+    async function callOllama() {
+
+      const prompt = document.getElementById('prompt').value;
+
+      const model = document.getElementById('model').value;
+
+      const responseDiv = document.getElementById('response');
+
+      responseDiv.textContent = '請稍候';
+
+      try {
+
+        const res = await fetch('http://127.0.0.1:11434/api/generate', {
+
+          method: 'POST',
+
+          headers: {
+
+            'Content-Type': 'application/json'
+
+          },
+
+          body: JSON.stringify({
+
+            model: model,
+
+            prompt: prompt,
+
+            stream: false
+
+          })
+
+        });
+
+        if (!res.ok) {
+
+          throw new Error(`HTTP error! status: ${res.status}`);
+
+        }
+
+        const data = await res.json();
+
+        responseDiv.textContent = data.response;
+
+      } catch (err) {
+
+        responseDiv.textContent = '錯誤：' + err.message;
+
+      }
+
+    }
+
+  </script>
+
+</body>
+
+</html>
