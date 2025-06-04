@@ -30,7 +30,7 @@
       responseBox.textContent = "⏳ 等待回覆中...";
 
       try {
-        const res = await fetch("https://insurance-replier-hf-api.onrender.com/", {
+        const res = await fetch("https://insurance-replier-hf-api.onrender.com/api", {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
