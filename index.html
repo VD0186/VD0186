@@ -22,20 +22,21 @@
   <script>
     document.getElementById("question-form").addEventListener("submit", async function(e) {
       e.preventDefault();
-      const question = document.getElementById("question").value+"請使用繁體中文進行回覆,只回答台灣可用的保險資訊，提供在台灣可取得的保險方案及相關資訊，需詳情與舉例,並且推薦適合的保險公司與商品"
-        "必要範例輸出:推薦保險方案時，方案的每月大約繳的保費，一定要輸出，根據保額來評估與理賠金額且從年齡來去判斷現階段適不適合保保險"
+      const question = document.getElementById("question").value+"請使用繁體中文進行回覆,只回答台灣可用的保險資訊，提供在台灣可取得的保險方案及相關資訊，需詳情與舉例,並且推薦適合的保險公司與商品"+
+        "必要範例輸出:推薦保險方案時，方案的每月大約繳的保費，一定要輸出，根據保額來評估與理賠金額且從年齡來去判斷現階段適不適合保保險"+
         "從保額來去推薦適用的保險商品(至少兩個),一定要輸出";
       const responseBox = document.getElementById("response-box");
       responseBox.style.display = "block";
       responseBox.textContent = "⏳ 等待回覆中...";
 
       try {
-        const res = await fetch("https://insurance-replier-hf-api.onrender.com", {
+        const res = await fetch("https://insurance-replier-hf-api.onrender.com/api", {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
           },
           body: JSON.stringify({ question })
+          mode:"cors"
         });
         const data = await res.json();
         responseBox.textContent = data.reply || "⚠️ 無法取得回覆";
